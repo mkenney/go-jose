@@ -12,4 +12,4 @@ services:
         entrypoint: sh
         command:
             - '-cexu'
-            - 'cd /go/src/github.com/mkenney/go-jose && dep ensure -update && go build -o /go/bin/app && /go/bin/app'
+            - 'cd /go/src/github.com/mkenney/go-jose && dep ensure -update && go build -o /go/bin/app && chmod +x /go/bin/app && /go/bin/app'

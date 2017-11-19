@@ -3,8 +3,6 @@ package crypto
 import (
 	"encoding/base64"
 	"encoding/json"
-
-	"github.com/mkenney/go-jose/jose"
 )
 
 /*
@@ -65,8 +63,8 @@ func (s *Signature) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-var (
-	_ json.Marshaler   = (Signature)(nil)
-	_ json.Unmarshaler = (*Signature)(nil)
-	_ jose.Encoder     = (Signature)(nil)
-)
+//var (
+//	_ json.Marshaler   = (Signature)(nil)
+//	_ json.Unmarshaler = (*Signature)(nil)
+//	_ jose.Encoder     = (Signature)(nil)
+//)

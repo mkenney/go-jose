@@ -3,6 +3,7 @@ package jose
 import (
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 )
 
 /*
@@ -10,21 +11,33 @@ Claims implements the JWS and JWE Claims type
 */
 type Claims map[string]interface{}
 
+func NewClaims() Claims {
+	return make(Claims)
+}
+
 /*
 Delete removes the specified Claim from the set
 */
-func (claims Claims) Delete(key string) {
+func (claims Claims) Delete(key string) error {
+	if !claims.Has(key) {
+		return fmt.Errorf("Claim '%s' does not exist", key)
+	}
 	delete(claims, key)
+	return nil
 }
 
 /*
 Get retrieves a specified Claim Value
 */
-func (claims Claims) Get(key string) interface{} {
+func (claims Claims) Get(key string) (interface{}, error) {
 	if claims == nil {
-		return nil
+		return nil, nil
 	}
-	return claims[key]
+	ret, ok := claims[key]
+	if ok {
+		return ret, nil
+	}
+	return nil, fmt.Errorf("Claim '%s' does not exist", key)
 }
 
 /*
@@ -38,8 +51,9 @@ func (claims Claims) Has(key string) bool {
 /*
 Set sets the specified Claim Value
 */
-func (claims Claims) Set(key string, val interface{}) {
+func (claims Claims) Set(key string, val interface{}) error {
 	claims[key] = val
+	return nil
 }
 
 /*
