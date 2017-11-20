@@ -4,7 +4,6 @@ import (
 	"crypto"
 	"crypto/hmac"
 	"encoding/json"
-	"errors"
 )
 
 /*
@@ -37,22 +36,17 @@ var (
 		Name: "HS512",
 		Hash: crypto.SHA512,
 	}
-
-	// ErrSignatureInvalid is returned when the provided signature is found to
-	// be invalid.
-	ErrSignatureInvalid = errors.New("signature is invalid")
-	ErrInvalidKey       = errors.New("key is invalid")
 )
 
 /*
-Alg implements the SigningMethod interface
+Alg implements the Signature interface
 */
 func (sig *HMAC) Alg() string {
 	return sig.Name
 }
 
 /*
-Hasher implements the SigningMethod interface
+Hasher implements the Signature interface
 */
 func (sig *HMAC) Hasher() crypto.Hash {
 	return sig.Hash
@@ -66,7 +60,7 @@ func (sig *HMAC) MarshalJSON() ([]byte, error) {
 }
 
 /*
-Verify implements the SigningMethod interface
+Verify implements the Signature interface
 */
 func (sig *HMAC) Verify(raw []byte, signature Signature, key interface{}) error {
 	keyBytes, ok := key.([]byte)
@@ -80,11 +74,11 @@ func (sig *HMAC) Verify(raw []byte, signature Signature, key interface{}) error 
 		return nil
 	}
 
-	return ErrSignatureInvalid
+	return ErrInvalidSignature
 }
 
 /*
-Sign implements the SigningMethod interface
+Sign implements the Signature interface
 */
 func (sig *HMAC) Sign(data []byte, key interface{}) (Signature, error) {
 	keyBytes, ok := key.([]byte)

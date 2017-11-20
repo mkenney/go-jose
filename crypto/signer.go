@@ -2,12 +2,13 @@ package crypto
 
 import (
 	"crypto"
+	"errors"
 )
 
 /*
-SigningMethod provides the interfaceo for signing tokens
+Signer provides the interfaceo for signing tokens
 */
-type SigningMethod interface {
+type Signer interface {
 	// Alg returns the name of the algorithm being used to sign a token
 	Alg() string
 
@@ -22,3 +23,11 @@ type SigningMethod interface {
 	// Hasher returns the hashing algorithm itself
 	Hasher() crypto.Hash
 }
+
+var (
+	// ErrInvalidKey is returned when the provided key is invalid
+	ErrInvalidKey = errors.New("key is invalid")
+
+	// ErrInvalidSignature is returned when the provided signature is invalid
+	ErrInvalidSignature = errors.New("signature is invalid")
+)

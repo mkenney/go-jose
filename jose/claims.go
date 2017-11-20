@@ -11,6 +11,9 @@ Claims implements the JWS and JWE Claims type
 */
 type Claims map[string]interface{}
 
+/*
+NewClaims makes and returns a Claims variable
+*/
 func NewClaims() Claims {
 	return make(Claims)
 }

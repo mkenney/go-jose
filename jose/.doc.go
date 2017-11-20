@@ -1,4 +1,5 @@
 /*
-Package jose implements common types and helper methods for child packages
+Package jose defines interfaces and data types to support Javascript Object
+Signing and Encryption (JOSE) functionality
 */
 package jose
