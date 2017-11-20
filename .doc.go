@@ -11,15 +11,13 @@ Examples (https://tools.ietf.org/html/rfc7520)
 
 The primary goal of this library is to provide a complete, easy to use,
 Javascript Object Signing and Encryption (JOSE) implementation. Existing
-libraries are either incomplete, poorly documented, or difficult to implement.
+libraries are either incomplete, poorly documented, heavily dependent on
+3rd-party libraries, simply or difficult to implement.
 
 	https://github.com/dgrijalva/jwt-go
 	https://github.com/lestrrat/go-jwx
 	https://github.com/SermoDigital/jose
 	https://github.com/square/go-jose
-
-This library exists because there was a need for a toolset that encompasses the
-whole set of JWx technologies in a highly customizable manner, in one package.
 */
 package go-jose
 
