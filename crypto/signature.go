@@ -11,21 +11,6 @@ Signature represents a JWS signature
 type Signature []byte
 
 /*
-MarshalJSON implements json.Marshaler
-*/
-func (s Signature) MarshalJSON() ([]byte, error) {
-	jsonBytes, err := json.Marshal(s)
-	if nil != err {
-		return nil, err
-	}
-	buf := make([]byte, base64.RawURLEncoding.EncodedLen(len(jsonBytes))+2)
-	buf[0] = '"'
-	base64.RawURLEncoding.Encode(buf[1:], jsonBytes)
-	buf[len(buf)-1] = '"'
-	return buf, nil
-}
-
-/*
 FromBase64 implements jose.Decoder
 */
 func (s Signature) FromBase64(bytes []byte) error {
@@ -48,6 +33,21 @@ func (s Signature) ToBase64() ([]byte, error) {
 }
 
 /*
+MarshalJSON implements json.Marshaler
+*/
+func (s Signature) MarshalJSON() ([]byte, error) {
+	jsonBytes, err := json.Marshal(s)
+	if nil != err {
+		return nil, err
+	}
+	buf := make([]byte, base64.RawURLEncoding.EncodedLen(len(jsonBytes))+2)
+	buf[0] = '"'
+	base64.RawURLEncoding.Encode(buf[1:], jsonBytes)
+	buf[len(buf)-1] = '"'
+	return buf, nil
+}
+
+/*
 UnmarshalJSON implements json.Unmarshaler
 */
 func (s *Signature) UnmarshalJSON(bytes []byte) error {
@@ -62,9 +62,3 @@ func (s *Signature) UnmarshalJSON(bytes []byte) error {
 	*s = Signature(buf)
 	return nil
 }
-
-//var (
-//	_ json.Marshaler   = (Signature)(nil)
-//	_ json.Unmarshaler = (*Signature)(nil)
-//	_ jose.Encoder     = (Signature)(nil)
-//)
