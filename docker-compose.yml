@@ -1,0 +1,15 @@
+version: '2'
+services:
+    build-and-run:
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+        container_name: test
+        volumes:
+            - .:/go/src/github.com/mkenney/go-jose
+        environment:
+            - LOG_LEVEL=debug
+        entrypoint: sh
+        command:
+            - '-cexu'
+            - 'cd /go/src/github.com/mkenney/go-jose && dep ensure -update && go build -o /go/bin/app && chmod +x /go/bin/app && /go/bin/app'
